@@ -17,8 +17,8 @@ const { spawn }  = require('child_process');
 const chokidar   = require('chokidar');
 // Get target file name
 let target = (process.argv.length>2)?process.argv[2]:'!';
-target = target.match(/(.*)\./)[1];
-// target = target.replace(/\.java/g,'');
+// target = (target.match(/(.*)\./))?target.match(/(.*)\./)[1]:target.match(/(.*)\./)[0];
+target = target.replace(/\.java/g,'');
 const fn = target;
 // console.log('t',target,'t');
 // If filename is faulty -> Exit
@@ -109,17 +109,23 @@ let findFile = function(fileToFind) {
   return new Promise( (resolv, reject) => {
     let foundFile = false;
     // Start compiling the .java file to .class file
-    const finderChild = spawn('ls');
-    // Connect to promise
+    const finderChild = spawn('ls', [], { cwd: __dirname});
+    // When find command is done -> promise out
     let finderResolve = new Promise( (resolve) => {
       finderChild.on('exit', resolve);
     });
+    // Show Directory Contents command output
     finderChild.stdout.on('data', (data) => {
       //minimonSay(data);
       if (data.includes(fileToFind+'.java')) {
         foundFile = true;
       }
     });
+    // Error handling
+    finderChild.on('error', (code, signal)=>{
+      log(code, signal);
+    })
+
     // Feedback from compiling
     finderResolve.then( (code, signal) => {
       // log('Exited with', 'code', code, 'signal', signal);
@@ -139,13 +145,16 @@ let findFile = function(fileToFind) {
 }
 // Compile file
 let compileFile = function() {
-  return new Promise( (resolv) => {
+  return new Promise( (resolv, reject) => {
     // Start compiling the .java file to .class file
     const compileChild = spawn('javac', [target+'.java']);
     // Connect to promise
     let compileResolve = new Promise( (resolve) => {
       compileChild.on('exit', resolve);
     });
+    let compileErrors  = new Promise( (resolve) => {
+      compileChild.on('error', reject);
+    })
 
     // Feedback from compiling
     compileResolve.then( (code, signal) => {
@@ -212,6 +221,7 @@ findFile(fn)
     log('Caught something');
   })
 
+var currentRide;
 
 let watcher = chokidar.watch(fn+'.java');
 watcher.on('add', (path) => {
@@ -220,7 +230,8 @@ watcher.on('add', (path) => {
 })
 watcher.on('change', (path) => {
   log('File', path, 'has been changed');
-  let changeIt = compileFile()
+  
+  currentRide = compileFile()
     .then( runFile )
     .then( (msg) => {
       minimonSay('Waiting for further changes...');
