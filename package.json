@@ -1,0 +1,26 @@
+{
+  "name": "minimon",
+  "version": "1.0.0",
+  "description": "Nodemon for single java files - quick testbench compiler&runner",
+  "main": "minimon.js",
+  "scripts": {
+    "test": "node minimon.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaljuk/minimon.git"
+  },
+  "keywords": [
+    "Javascript",
+    "java",
+    "testing",
+    "developing",
+    "tools"
+  ],
+  "author": "Erik K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kaljuk/minimon/issues"
+  },
+  "homepage": "https://github.com/Kaljuk/minimon#readme"
+}
