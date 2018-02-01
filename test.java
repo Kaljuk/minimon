@@ -6,6 +6,6 @@ public class test {
     for (String arg : args) {
       System.out.println("Argument "+arg);
     };
-    System.out.println("Java file output 123123123");
+    System.out.println("Java file output, test 213");
   }
 }

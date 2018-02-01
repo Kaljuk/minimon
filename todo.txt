@@ -1,0 +1,26 @@
+# To ADD #
+
+# Multiple save cancels other compile&run methods
+
+
+# Accept filename with .java prefix and without .java ending
+
+# Take unexpected input - like nodemon accepts ["rs"]
+Additional commands ->
+  [
+    "rs"-restart, example "rs"+<enter>
+    "cn"-change filename, example "cn newFilename.java" or "cn newfname"
+    "status"|"stat"-get file run or compile status/ last error
+    #Experimental#
+    "list" -get the list of all observed file names + their last statuses
+    "add"  -add a new file to observe
+    "remove"-remove a filename from to observe list 
+  ]
+
+
+#>> Experimental <<#
+If filename is faulty or not found,
+Search for a similiar file -> if found similiar ->
+Then -> suggest changes < Needs to accept input like nodemon ["rs"] >
+
+# #
