@@ -10,11 +10,12 @@ Additional commands ->
   [
     "rs"-restart, example "rs"+<enter>
     "cn"-change filename, example "cn newFilename.java" or "cn newfname"
+    "stop"|"exit"|"quit"- stop the program, example "stop" or "exit" or "quit"
     "status"|"stat"-get file run or compile status/ last error
     #Experimental#
     "list" -get the list of all observed file names + their last statuses
     "add"  -add a new file to observe
-    "remove"-remove a filename from to observe list 
+    "remove"-remove a filename from to observe list
   ]
 
 
