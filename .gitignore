@@ -1,3 +1,4 @@
 
+*.java
 *.class
 node_modules
